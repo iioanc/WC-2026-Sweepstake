@@ -6,7 +6,7 @@
 <title>WC2026 Family Sweepstake</title>
 <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--dark:#080f0a;--card:#111c13;--card2:#162018;--border:#1e3022;--gold:#f0c040;--gold2:#e09020;--green:#3ecf6a;--red:#f05050;--text:#d8eedc;--muted:#6a8870;--t1:#f0c040;--t2:#3ecf6a;--t3:#60b0f0;--t4:#f08030}
+:root{--dark:#080f0a;--card:#111c13;--card2:#162018;--border:#1e3022;--gold:#f0c040;--gold2:#e09020;--green:#3ecf6a;--red:#f05050;--blue:#60b0f0;--text:#d8eedc;--muted:#6a8870;--t1:#f0c040;--t2:#3ecf6a;--t3:#60b0f0;--t4:#f08030}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--dark);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(62,207,106,.07) 0%,transparent 60%),repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px)}
 header{padding:2rem 1rem 1.2rem;text-align:center}
@@ -17,7 +17,12 @@ h1{font-family:'Teko',sans-serif;font-weight:700;font-size:clamp(3rem,9vw,6rem);
 .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;animation:livepulse 2s infinite}
 .live-dot.error{background:var(--red);animation:none}
 @keyframes livepulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-.main{max-width:700px;margin:0 auto;padding:1.2rem .8rem 4rem}
+nav{display:flex;justify-content:center;padding:.8rem .5rem 0;border-bottom:1px solid var(--border);overflow-x:auto}
+.tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.1rem .7rem;cursor:pointer;transition:all .2s;white-space:nowrap;margin-bottom:-1px}
+.tab:hover{color:var(--text)}.tab.active{color:var(--green);border-bottom-color:var(--green)}
+.panel{display:none;max-width:780px;margin:0 auto;padding:1.2rem .8rem 4rem}.panel.active{display:block}
+
+/* LEADERBOARD */
 .podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:1.5rem}
 .podium-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem .8rem;text-align:center;position:relative;overflow:hidden;transition:transform .2s}
 .podium-card:hover{transform:translateY(-2px)}
@@ -30,36 +35,67 @@ h1{font-family:'Teko',sans-serif;font-weight:700;font-size:clamp(3rem,9vw,6rem);
 .podium-pts{font-family:'Teko',sans-serif;font-size:2.6rem;font-weight:700;color:var(--gold);line-height:1}
 .podium-label{font-size:.65rem;color:var(--muted);margin-top:.15rem}
 .podium-teams{margin-top:.5rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem}
-.lb-section-title{font-family:'Teko',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin:.5rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--border)}
+.section-title{font-family:'Teko',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin:.5rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--border)}
 .lb-row{display:flex;align-items:center;gap:.8rem;padding:.9rem .6rem;border-bottom:1px solid var(--border);transition:background .15s}
 .lb-row:hover{background:var(--card2)}
 .lb-rank{font-family:'Teko',sans-serif;font-size:1.5rem;color:var(--muted);width:2rem;text-align:center;flex-shrink:0}
 .lb-rank.top{color:var(--gold)}
 .lb-name{font-weight:600;font-size:.95rem;flex:1}
 .lb-teams{display:flex;flex-wrap:wrap;gap:.2rem;margin-top:.25rem}
-.tier-chip{display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.1rem .35rem;border-radius:3px;margin:0;border:1px solid}
-.tc-1{color:var(--t1);border-color:rgba(240,192,64,.3);background:rgba(240,192,64,.08)}
-.tc-2{color:var(--t2);border-color:rgba(62,207,106,.3);background:rgba(62,207,106,.08)}
-.tc-3{color:var(--t3);border-color:rgba(96,176,240,.3);background:rgba(96,176,240,.08)}
-.tc-4{color:var(--t4);border-color:rgba(240,128,48,.3);background:rgba(240,128,48,.08)}
-.tc-elim{color:var(--muted);border-color:var(--border);background:transparent;opacity:.35;text-decoration:line-through}
 .lb-right{text-align:right;flex-shrink:0}
 .lb-pts{font-family:'Teko',sans-serif;font-size:1.6rem;color:var(--gold)}
 .lb-breakdown{font-size:.65rem;color:var(--muted)}
 .lb-bar-wrap{display:flex;align-items:center;gap:.4rem;margin-top:.2rem}
 .lb-bar{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;min-width:50px}
 .lb-bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:2px;transition:width .6s ease}
-.recent-title{font-family:'Teko',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin:1.5rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--border)}
+
+/* TEAMS TABLE */
+.teams-table{width:100%;border-collapse:collapse}
+.teams-table th{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:.5rem .7rem;border-bottom:1px solid var(--border);text-align:left}
+.teams-table td{padding:.75rem .7rem;border-bottom:1px solid var(--border);vertical-align:middle;font-size:.88rem}
+.teams-table tr:hover td{background:var(--card2)}
+.player-name-cell{font-weight:700;font-size:.95rem}
+.tier-chip{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .4rem;border-radius:3px;margin:.1rem .1rem 0 0;border:1px solid;white-space:nowrap}
+.tc-1{color:var(--t1);border-color:rgba(240,192,64,.3);background:rgba(240,192,64,.08)}
+.tc-2{color:var(--t2);border-color:rgba(62,207,106,.3);background:rgba(62,207,106,.08)}
+.tc-3{color:var(--t3);border-color:rgba(96,176,240,.3);background:rgba(96,176,240,.08)}
+.tc-4{color:var(--t4);border-color:rgba(240,128,48,.3);background:rgba(240,128,48,.08)}
+.tc-elim{color:var(--muted);border-color:var(--border);background:transparent;opacity:.35;text-decoration:line-through}
+.tier-legend{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:var(--muted)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* RECENT EVENTS */
 .event-item{display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.82rem}
 .event-item:last-child{border-bottom:none}
 .event-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .event-text{flex:1;color:var(--text)}.event-sub{font-size:.68rem;color:var(--muted)}
 .event-pts{font-family:'Teko',sans-serif;font-size:1.15rem;color:var(--gold);flex-shrink:0}
+
+/* RULES */
+.rule-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:.7rem;font-size:.86rem;line-height:1.7;color:var(--text)}
+.rule-card strong{color:var(--gold)}
+.rule-title{font-family:'Teko',sans-serif;font-size:1.1rem;font-weight:600;color:var(--green);letter-spacing:.05em;margin-bottom:.4rem}
+.pts-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem}
+.pts-row{display:flex;justify-content:space-between;align-items:center;padding:.3rem .5rem;background:var(--card2);border-radius:4px;font-size:.8rem}
+.pts-val{font-family:'Teko',sans-serif;font-size:1.1rem;color:var(--gold)}
+.wc-item{display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.82rem}
+.wc-item:last-child{border-bottom:none}
+.wc-icon{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+.wc-detail{flex:1}
+.wc-name-r{font-weight:600;color:var(--text)}
+.wc-desc-r{font-size:.7rem;color:var(--muted);margin-top:.1rem}
+.wc-pts-r{font-family:'Teko',sans-serif;font-size:1.1rem;color:var(--gold);flex-shrink:0}
+.badge-sm{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.1rem .35rem;border-radius:3px;margin-left:.3rem;vertical-align:middle}
+.badge-repeat{background:rgba(96,176,240,.15);color:var(--blue)}
+.badge-once{background:rgba(240,80,80,.15);color:var(--red)}
+.badge-end{background:rgba(160,96,224,.15);color:#a060e0}
+
 .loading{text-align:center;padding:3rem 1rem;color:var(--muted)}
 .loading-spinner{font-size:2.5rem;animation:spin 1.5s linear infinite;display:block;margin-bottom:1rem}
 @keyframes spin{to{transform:rotate(360deg)}}
 .last-updated{text-align:center;font-size:.7rem;color:var(--muted);padding:.8rem;letter-spacing:.05em}
-@media(max-width:480px){.podium{gap:.4rem}.podium-name{font-size:1.1rem}.podium-pts{font-size:2rem}}
+@media(max-width:480px){.podium{gap:.4rem}.podium-name{font-size:1.1rem}.podium-pts{font-size:2rem}.pts-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -72,23 +108,101 @@ h1{font-family:'Teko',sans-serif;font-weight:700;font-size:clamp(3rem,9vw,6rem);
   <div class="live-dot" id="live-dot"></div>
   <span id="live-status">Connecting...</span>
 </div>
-<div class="main">
-  <div id="loading" class="loading">
-    <span class="loading-spinner">⚽</span>
-    Loading leaderboard...
-  </div>
-  <div id="content" style="display:none">
+<nav>
+  <button class="tab active" onclick="showTab('standings',this)">🏅 Leaderboard</button>
+  <button class="tab" onclick="showTab('teams',this)">👥 Teams</button>
+  <button class="tab" onclick="showTab('rules',this)">📋 Rules</button>
+</nav>
+
+<!-- LEADERBOARD -->
+<div class="panel active" id="tab-standings">
+  <div id="loading-lb" class="loading"><span class="loading-spinner">⚽</span>Loading...</div>
+  <div id="content-lb" style="display:none">
     <div class="podium" id="podium"></div>
-    <div class="lb-section-title">Full Standings</div>
+    <div class="section-title">Full Standings</div>
     <div id="standings"></div>
-    <div class="recent-title">Recent Points</div>
+    <div class="section-title" style="margin-top:1.5rem">Recent Points</div>
     <div id="recent"></div>
     <div class="last-updated" id="last-updated"></div>
   </div>
 </div>
+
+<!-- TEAMS -->
+<div class="panel" id="tab-teams">
+  <div id="loading-teams" class="loading"><span class="loading-spinner">⚽</span>Loading...</div>
+  <div id="content-teams" style="display:none">
+    <div class="tier-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--t1)"></div><span style="color:var(--t1)">Tier 1 — Favourites</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--t2)"></div><span style="color:var(--t2)">Tier 2 — Contenders</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--t3)"></div><span style="color:var(--t3)">Tier 3 — Hopefuls</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--t4)"></div><span style="color:var(--t4)">Tier 4 — Underdogs</span></div>
+    </div>
+    <table class="teams-table">
+      <thead><tr><th>#</th><th>Player</th><th>Teams</th><th style="text-align:right">Pts</th></tr></thead>
+      <tbody id="teams-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- RULES -->
+<div class="panel" id="tab-rules">
+  <div class="rule-card">
+    <div class="rule-title">How the Draw Works</div>
+    Each player has been randomly drawn <strong>4 teams — one from each tier</strong>. Teams are tiered by current betting odds, so everyone starts with the same expected chance of winning. Tier 4 underdogs are worth more points if they do well — so don't write anyone off!
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-title">Team Points</div>
+    Points are awarded based on your team's tier — underdogs earn more for the same result.
+    <div class="pts-grid" style="margin-top:.7rem">
+      <div>
+        <div style="font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">Result</div>
+        <div class="pts-row"><span>Group Win</span><span class="pts-val" style="color:var(--t4)">+6 / +5 / +4 / +3</span></div>
+        <div class="pts-row"><span>Group Draw</span><span class="pts-val" style="color:var(--t4)">+3 / +2 / +1 / +1</span></div>
+        <div class="pts-row"><span>Goal Scored</span><span class="pts-val">+2 each</span></div>
+        <div class="pts-row"><span>Reach R32</span><span class="pts-val" style="color:var(--t4)">+6 / +4 / +3 / +2</span></div>
+        <div class="pts-row"><span>Reach QF</span><span class="pts-val" style="color:var(--t4)">+15 / +10 / +7 / +5</span></div>
+        <div class="pts-row"><span>Reach SF</span><span class="pts-val" style="color:var(--t4)">+22 / +16 / +12 / +8</span></div>
+        <div class="pts-row"><span>Reach Final</span><span class="pts-val" style="color:var(--t4)">+30 / +21 / +16 / +11</span></div>
+        <div class="pts-row" style="background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.2)"><span>🏆 Win WC</span><span class="pts-val" style="color:var(--gold)">+45 / +34 / +26 / +18</span></div>
+      </div>
+    </div>
+    <div style="font-size:.72rem;color:var(--muted);margin-top:.6rem">Points shown as Tier 4 / Tier 3 / Tier 2 / Tier 1</div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-title">Wildcards</div>
+    Extra points awarded after each match and at the end of the tournament. Awarded to whoever holds that team.
+
+    <div style="margin-top:.8rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">Match Stats <span class="badge-sm badge-repeat">After every match</span></div>
+    <div class="wc-item"><div class="wc-icon">🥅</div><div class="wc-detail"><div class="wc-name-r">Most Shots on Target</div><div class="wc-desc-r">Team with most shots on target in the match</div></div><div class="wc-pts-r">+4</div></div>
+    <div class="wc-item"><div class="wc-icon">🔄</div><div class="wc-detail"><div class="wc-name-r">Most Possession</div><div class="wc-desc-r">Team with highest possession %</div></div><div class="wc-pts-r">+2</div></div>
+    <div class="wc-item"><div class="wc-icon">🚩</div><div class="wc-detail"><div class="wc-name-r">Most Corners</div><div class="wc-desc-r">Team that won the most corners</div></div><div class="wc-pts-r">+2</div></div>
+    <div class="wc-item"><div class="wc-icon">🚫</div><div class="wc-detail"><div class="wc-name-r">Clean Sheet</div><div class="wc-desc-r">Team that kept a clean sheet</div></div><div class="wc-pts-r">+4</div></div>
+
+    <div style="margin-top:.8rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">One-Time Events <span class="badge-sm badge-once">First occurrence only</span></div>
+    <div class="wc-item"><div class="wc-icon">⚽</div><div class="wc-detail"><div class="wc-name-r">First Goal of Tournament</div><div class="wc-desc-r">Team that scores the very first goal</div></div><div class="wc-pts-r">+6</div></div>
+    <div class="wc-item"><div class="wc-icon">🟥</div><div class="wc-detail"><div class="wc-name-r">First Red Card</div><div class="wc-desc-r">First red card of the entire tournament</div></div><div class="wc-pts-r">+6</div></div>
+    <div class="wc-item"><div class="wc-icon">🎩</div><div class="wc-detail"><div class="wc-name-r">First Hat-Trick</div><div class="wc-desc-r">First hat-trick of the tournament</div></div><div class="wc-pts-r">+8</div></div>
+    <div class="wc-item"><div class="wc-icon">🎯</div><div class="wc-detail"><div class="wc-name-r">First Penalty Shootout Win</div><div class="wc-desc-r">First team to win on penalties</div></div><div class="wc-pts-r">+8</div></div>
+    <div class="wc-item"><div class="wc-icon">🤦</div><div class="wc-detail"><div class="wc-name-r">First Own Goal</div><div class="wc-desc-r">First own goal of the tournament</div></div><div class="wc-pts-r">+5</div></div>
+
+    <div style="margin-top:.8rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">Tournament Awards <span class="badge-sm badge-end">End of tournament</span></div>
+    <div class="wc-item"><div class="wc-icon">👟</div><div class="wc-detail"><div class="wc-name-r">Golden Boot Winner</div><div class="wc-desc-r">Holder of the top scorer's team</div></div><div class="wc-pts-r">+12</div></div>
+    <div class="wc-item"><div class="wc-icon">🧤</div><div class="wc-detail"><div class="wc-name-r">Golden Glove Winner</div><div class="wc-desc-r">Holder of the best goalkeeper's team</div></div><div class="wc-pts-r">+8</div></div>
+    <div class="wc-item"><div class="wc-icon">⭐</div><div class="wc-detail"><div class="wc-name-r">Player of Tournament</div><div class="wc-desc-r">Holder of the Player of Tournament's team</div></div><div class="wc-pts-r">+12</div></div>
+    <div class="wc-item"><div class="wc-icon">🌟</div><div class="wc-detail"><div class="wc-name-r">Best Young Player</div><div class="wc-desc-r">Holder of the best U21 player's team</div></div><div class="wc-pts-r">+6</div></div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-title">Keeping It Fair</div>
+    Wildcards fire after <strong>every match</strong> — not just certain days — so everyone has an equal chance regardless of when their teams play. Even if all your teams go out in the group stage, wildcard points keep coming in right up to the final. The World Cup winner's owner is guaranteed to win overall, but 2nd and 3rd place stays competitive throughout. 🏴󠁧󠁢󠁥󠁮󠁧󠁿⚽
+  </div>
+</div>
+
 <script>
-// Public bin — no API key needed for reading
 const BIN_ID = '6a26a8e4da38895dfe9960e8';
+const API_KEY = '$2a$10$j901IkYjf6kc5engmSwMeuoq/9E8GcIrJNxaUebBJAq90PQTB9AAC';
 const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}/latest`;
 const REFRESH_MS = 30000;
 
@@ -108,36 +222,81 @@ function render(state){
   const players=state.players||[];
   const events=state.events||[];
   const eliminated=state.eliminated||[];
-  const sorted=[...players].sort((a,b)=>totalPts(b,events)-totalPts(a,events));
+  const hasScores=events.length>0;
+
+  // Sort: if scores exist sort by points, else alphabetical
+  const sorted=[...players].sort((a,b)=>{
+    if(hasScores) return totalPts(b,events)-totalPts(a,events);
+    return a.name.localeCompare(b.name);
+  });
   const maxPts=Math.max(...sorted.map(p=>totalPts(p,events)),1);
   const medals=['🥇','🥈','🥉'],pc=['p1','p2','p3'];
 
-  document.getElementById('podium').innerHTML=sorted.slice(0,3).map((p,i)=>{
-    const pts=totalPts(p,events),bd=breakdownPts(p,events);
-    const chips=(p.teams||[]).map(t=>teamChip(t,eliminated)).join('');
-    return`<div class="podium-card ${pc[i]}"><div class="podium-medal">${medals[i]}</div><div class="podium-name">${p.name}</div><div class="podium-pts">${pts}</div><div class="podium-label">T:${bd.team} W:${bd.wc} B:${bd.bonus}</div><div class="podium-teams">${chips}</div></div>`;
-  }).join('');
+  // Podium — only show if there are scores
+  if(hasScores){
+    document.getElementById('podium').innerHTML=sorted.slice(0,3).map((p,i)=>{
+      const pts=totalPts(p,events),bd=breakdownPts(p,events);
+      const chips=(p.teams||[]).map(t=>teamChip(t,eliminated)).join('');
+      return`<div class="podium-card ${pc[i]}"><div class="podium-medal">${medals[i]}</div><div class="podium-name">${p.name}</div><div class="podium-pts">${pts}</div><div class="podium-label">T:${bd.team} W:${bd.wc} B:${bd.bonus}</div><div class="podium-teams">${chips}</div></div>`;
+    }).join('');
+    document.getElementById('podium').style.display='grid';
+  } else {
+    document.getElementById('podium').style.display='none';
+  }
 
+  // Standings
   document.getElementById('standings').innerHTML=sorted.map((p,i)=>{
     const pts=totalPts(p,events),pct=Math.round((pts/maxPts)*100),bd=breakdownPts(p,events);
     const chips=(p.teams||[]).map(t=>teamChip(t,eliminated)).join('');
-    return`<div class="lb-row"><div class="lb-rank ${i<3?'top':''}">${i+1}</div><div style="flex:1"><div class="lb-name">${p.name}</div><div class="lb-teams">${chips}</div><div class="lb-bar-wrap"><div class="lb-bar"><div class="lb-bar-fill" style="width:${pct}%"></div></div></div></div><div class="lb-right"><div class="lb-pts">${pts}</div><div class="lb-breakdown">T:${bd.team} W:${bd.wc} B:${bd.bonus}</div></div></div>`;
+    return`<div class="lb-row">
+      <div class="lb-rank ${i<3&&hasScores?'top':''}">${i+1}</div>
+      <div style="flex:1">
+        <div class="lb-name">${p.name}</div>
+        <div class="lb-teams">${chips}</div>
+        ${hasScores?`<div class="lb-bar-wrap"><div class="lb-bar"><div class="lb-bar-fill" style="width:${pct}%"></div></div></div>`:''}
+      </div>
+      <div class="lb-right">
+        <div class="lb-pts">${hasScores?pts:'—'}</div>
+        ${hasScores?`<div class="lb-breakdown">T:${bd.team} W:${bd.wc} B:${bd.bonus}</div>`:''}
+      </div>
+    </div>`;
   }).join('');
 
+  // Recent events
   const colors={team:'var(--green)',wildcard:'var(--gold)',bonus:'var(--blue)'};
   const recent=events.slice(0,15);
   document.getElementById('recent').innerHTML=recent.length
     ?recent.map(e=>`<div class="event-item"><div class="event-dot" style="background:${colors[e.type]||'var(--muted)'}"></div><div class="event-text"><div style="font-weight:600">${e.player}</div><div class="event-sub">${e.reason}${e.team?' · '+e.team:''}</div></div><div class="event-pts">+${e.pts}</div></div>`).join('')
-    :'<div style="color:var(--muted);font-size:.85rem;padding:.4rem 0">No events yet — tournament starts June 11!</div>';
+    :'<div style="color:var(--muted);font-size:.85rem;padding:.4rem 0">No points yet — tournament kicks off June 11! ⚽</div>';
+
+  // Teams tab — always alphabetical
+  const alpha=[...players].sort((a,b)=>a.name.localeCompare(b.name));
+  document.getElementById('teams-tbody').innerHTML=alpha.map((p,i)=>{
+    const pts=totalPts(p,events);
+    const chips=(p.teams||[]).sort((a,b)=>{
+      // Sort by tier first then name
+      const ta=getTeamTier(a),tb=getTeamTier(b);
+      if(ta!==tb)return ta-tb;
+      return a.localeCompare(b);
+    }).map(t=>teamChip(t,eliminated)).join(' ');
+    return`<tr>
+      <td style="font-family:'Teko',sans-serif;font-size:1.2rem;color:var(--muted);width:2rem">${i+1}</td>
+      <td class="player-name-cell">${p.name}</td>
+      <td>${chips}</td>
+      <td style="text-align:right;font-family:'Teko',sans-serif;font-size:1.3rem;color:var(--gold)">${hasScores?pts:'—'}</td>
+    </tr>`;
+  }).join('');
 
   document.getElementById('last-updated').textContent=`Last updated: ${new Date().toLocaleTimeString('en-GB')} · Auto-refreshes every 30s`;
-  document.getElementById('loading').style.display='none';
-  document.getElementById('content').style.display='block';
+  document.getElementById('loading-lb').style.display='none';
+  document.getElementById('content-lb').style.display='block';
+  document.getElementById('loading-teams').style.display='none';
+  document.getElementById('content-teams').style.display='block';
 }
 
 async function fetchData(){
   try{
-    const r=await fetch(BIN_URL,{headers:{'X-Access-Key':'$2a$10$j901IkYjf6kc5engmSwMeuoq/9E8GcIrJNxaUebBJAq90PQTB9AAC'}});
+    const r=await fetch(BIN_URL,{headers:{'X-Access-Key':API_KEY,'X-Bin-Meta':'false'}});
     if(!r.ok)throw new Error(`HTTP ${r.status}`);
     const data=await r.json();
     const state=data.record||data;
@@ -149,6 +308,13 @@ async function fetchData(){
     document.getElementById('live-dot').className='live-dot error';
     document.getElementById('live-status').textContent='Connection error — retrying...';
   }
+}
+
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
 }
 
 fetchData();
